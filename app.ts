@@ -1,4 +1,4 @@
 import physics from './physics'
 
-console.log('Hello game');
-physics;
+console.log('Hello gameee');
+console.log(physics);
