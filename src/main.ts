@@ -1,7 +1,5 @@
-import { Greeter } from './greeter';
+import { Terrain } from './terrain';
 import { engine } from './engine';
 
-const g = new Greeter('Juri');
-g.greet();
-
-engine();
+let terrain = new Terrain;
+terrain.buildScreen();
