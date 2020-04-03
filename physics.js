@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-function default_1() {
-    console.log('321');
+function hello() {
+    return "Hello World";
 }
-exports["default"] = default_1;
+exports["default"] = hello;

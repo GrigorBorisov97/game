@@ -1,4 +1,4 @@
-import physics from './physics'
+import physics from './physics';
 
-console.log('Hello gameee');
-console.log(physics);
+console.log('Hello game');
+console.log([physics]);

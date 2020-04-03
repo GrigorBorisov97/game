@@ -1,3 +1,3 @@
-export default function (){
-    console.log('321')
+export default function hello() {
+    return "Hello World";
 }
