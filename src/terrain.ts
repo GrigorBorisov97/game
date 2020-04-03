@@ -1,21 +1,18 @@
 
-const canvas = <HTMLCanvasElement> document.getElementById("myCanvas");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
-
-interface stoneObjectInterface{
-    type: string,
-    x: number,
-    y: number,
-    scale: number
-}
+import StoneImage from './image'
+import { stoneObjectInterface } from './Interfaces'
+import { ctx } from './Const'
 
 export class Terrain {
-    stone: Array<stoneObjectInterface>;
+    stones: Array<stoneObjectInterface>;
 
     constructor(){
-        this.stone = [];
+        this.stones = [{
+            type: 3,
+            x: 10,
+            y: 10,
+            scale: 1
+        }];
     }
 
     buildScreen = () => {
@@ -24,6 +21,8 @@ export class Terrain {
     }
 
     addStone = () => {
-
+        this.stones.map(stone => {
+            new StoneImage(stone)
+        })
     }
 }
