@@ -11,3 +11,9 @@ export interface EnvInterface {
     update(): void;
 }
 
+export interface InputInterface {
+    bodyElement: HTMLBodyElement;
+    arrowLeft: boolean;
+    arrowRight: boolean;
+    arrowUp: boolean;
+}
