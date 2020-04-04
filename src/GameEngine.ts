@@ -30,6 +30,7 @@ class GameEngine
         canvas.width = this.width;
         canvas.height = this.height;
         this.ctx = canvas.getContext('2d');
+        this.ctx.fillStyle = "blue";
     }
 
     loadImage(name: string, path: string) {
