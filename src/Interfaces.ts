@@ -4,3 +4,10 @@ export interface stoneObjectInterface{
     y: number,
     scale: number
 }
+
+export interface EnvInterface {
+    preload(): void;
+    create(): void;
+    update(): void;
+}
+

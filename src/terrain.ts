@@ -1,7 +1,7 @@
 
 import StoneImage from './image'
 import { stoneObjectInterface } from './Interfaces'
-import { ctx } from './Const'
+// import { ctx } from './Const'
 
 export class Terrain {
     stones: Array<stoneObjectInterface>;
@@ -16,8 +16,8 @@ export class Terrain {
     }
 
     buildScreen = () => {
-        ctx.fillStyle = "gray";
-        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+        // ctx.fillStyle = "gray";
+        // ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
     }
 
     addStone = () => {
