@@ -7,10 +7,8 @@ class GameEngine
     height: number;
     env: EnvInterface;
     ctx: CanvasRenderingContext2D;
-    // images: {[key: string]: HTMLImageElement};
     images: { [key: string]: HTMLImageElement } = {};
 
-    // env:any need fix...
     constructor(id: string, width: number, height: number, env: EnvInterface) {
         this.id = id;
         this.width = width;
@@ -37,6 +35,18 @@ class GameEngine
         var img = new Image();
         img.src = path;
         this.images[name] = img;      
+    }
+
+    loadSound(name: string, path: string) {
+
+    }
+
+    moveElement() {
+
+    }
+
+    createElement() {
+
     }
 
 }
