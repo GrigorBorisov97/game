@@ -10,10 +10,10 @@ terrain.addStone();
 
 
 // set global object
-var gl = {
+var gl: any = {
     canvas: {
-        width: 380,
-        height: 500,
+        width: 360,
+        height: 520,
     },
     time: new Date().getTime(),
     running: true,
@@ -22,7 +22,7 @@ var gl = {
     input: new Input(),
     player: {
         x: 200,
-        y: 200,
+        y: 420,
         width: 100,
         height: 100,
     },
@@ -37,7 +37,7 @@ game.run();
 function preload() {
     
     game.loadImage('player', '../assets/images/player.png');
-    game.loadImage('sound', '../assets/images/patterns/1.jpg');
+    game.loadImage('stone1', '../assets/images/patterns/1.jpg');
      
 }
 
@@ -54,13 +54,25 @@ function update() {
 
         // Terrain logic
 
-
+        game.ctx.drawImage(game.images.stone1, 30,30, 50, 50);
 
         // Player logic
         var plX: number = gl.player.x;
         var plY: number = gl.player.y;
-        if (gl.input.arrowLeft) { plX -= 5;  gl.player.x = plX; }
-        if (gl.input.arrowRight) { plX += 5;  gl.player.x = plX; }
+        if (gl.input.arrowLeft) { 
+            plX -= 7; 
+            if (plX+gl.player.width<0) {
+                plX = gl.canvas.width;
+            } 
+        }
+        if (gl.input.arrowRight) { 
+            plX += 7; 
+            if (plX>gl.canvas.width) {
+                plX = 0-gl.player.width;
+            }
+        }
+        gl.player.x = plX;
+
         game.ctx.drawImage(game.images.player, plX,plY, gl.player.width, gl.player.height);
 
     }// else it is in pause
