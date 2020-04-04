@@ -68,22 +68,16 @@ function update() {
                 plX = gl.canvas.width;
             } 
             gl.player.direction = 'left';
-            plX -= gl.player.speed;
+            plX -= gl.player.speed * (lastDirection == 'right' ? 2 : 1);
         }
         if (gl.input.arrowRight) { 
             if (plX>gl.canvas.width) {
                 plX = 0-gl.player.width;
             }
             gl.player.direction = 'right';
-            plX += gl.player.speed;
+            plX += gl.player.speed * (lastDirection == 'left' ? 2 : 1);
         }
         gl.player.x = plX;
-
-        // game.ctx.save();
-
-        // game.ctx.translate(plX,plY);  
-
-        // game.ctx.scale(-1, -1); 
 
         game.ctx.drawImage(gl.player.direction == 'left' ? game.images.playerLeft : game.images.playerRight, plX,plY, gl.player.width, gl.player.height);
 
