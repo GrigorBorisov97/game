@@ -15,10 +15,10 @@ var gl = {
         width: 380,
         height: 500,
     },
-    terrain: {},
-    stones: {},
     time: new Date().getTime(),
     running: true,
+    terrain: {},
+    stones: {},
     input: new Input(),
     player: {
         x: 200,
