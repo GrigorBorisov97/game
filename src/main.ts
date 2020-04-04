@@ -2,6 +2,7 @@ import { Terrain } from './Terrain';
 import GameEngine from './GameEngine';
 // import * as Const from './Const';
 import { Input } from './Input';
+import { Player } from './Player';
  
 
 let terrain = new Terrain;
@@ -20,14 +21,7 @@ var gl: any = {
     terrain: {},
     stones: {},
     input: new Input(),
-    player: {
-        x: 200,
-        y: 420,
-        width: 100,
-        height: 100,
-        direction: 'left',
-        speed: 10,
-    },
+    player: new Player(),
 }
 console.log(gl)
 
