@@ -11,6 +11,10 @@ terrain.addStone();
 
 // set global object
 var gl = {
+    canvas: {
+        width: 380,
+        height: 500,
+    },
     terrain: {},
     stones: {},
     time: new Date().getTime(),
@@ -22,10 +26,6 @@ var gl = {
         width: 100,
         height: 100,
     },
-    canvas: {
-        width: 380,
-        height: 500,
-    }
 }
 console.log(gl)
 
@@ -62,6 +62,7 @@ function update() {
         if (gl.input.arrowLeft) { plX -= 5;  gl.player.x = plX; }
         if (gl.input.arrowRight) { plX += 5;  gl.player.x = plX; }
         game.ctx.drawImage(game.images.player, plX,plY, gl.player.width, gl.player.height);
+
     }// else it is in pause
     
     gl.input.reset();
