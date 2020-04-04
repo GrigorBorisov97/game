@@ -25,6 +25,8 @@ var gl: any = {
         y: 420,
         width: 100,
         height: 100,
+        direction: 'left',
+        speed: 10,
     },
 }
 console.log(gl)
@@ -36,7 +38,8 @@ game.run();
 // preload some image, audio ...
 function preload() {
     
-    game.loadImage('player', '../assets/images/player.png');
+    game.loadImage('playerLeft', '../assets/images/player_left.png');
+    game.loadImage('playerRight', '../assets/images/player_right.png');
     game.loadImage('stone1', '../assets/images/patterns/1.jpg');
      
 }
@@ -59,21 +62,30 @@ function update() {
         // Player logic
         var plX: number = gl.player.x;
         var plY: number = gl.player.y;
+        var lastDirection = gl.player.direction;
         if (gl.input.arrowLeft) { 
-            plX -= 7; 
             if (plX+gl.player.width<0) {
                 plX = gl.canvas.width;
             } 
+            gl.player.direction = 'left';
+            plX -= gl.player.speed;
         }
         if (gl.input.arrowRight) { 
-            plX += 7; 
             if (plX>gl.canvas.width) {
                 plX = 0-gl.player.width;
             }
+            gl.player.direction = 'right';
+            plX += gl.player.speed;
         }
         gl.player.x = plX;
 
-        game.ctx.drawImage(game.images.player, plX,plY, gl.player.width, gl.player.height);
+        // game.ctx.save();
+
+        // game.ctx.translate(plX,plY);  
+
+        // game.ctx.scale(-1, -1); 
+
+        game.ctx.drawImage(gl.player.direction == 'left' ? game.images.playerLeft : game.images.playerRight, plX,plY, gl.player.width, gl.player.height);
 
     }// else it is in pause
     
