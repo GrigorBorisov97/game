@@ -59,10 +59,8 @@ function update() {
         // Player logic
         var plX: number = gl.player.x;
         var plY: number = gl.player.y;
-        if (gl.input.arrowLeft) {
-            plX -= 5;
-            gl.player.x = plX;
-        }
+        if (gl.input.arrowLeft) { plX -= 5;  gl.player.x = plX; }
+        if (gl.input.arrowRight) { plX += 5;  gl.player.x = plX; }
         game.ctx.drawImage(game.images.player, plX,plY, gl.player.width, gl.player.height);
     }// else it is in pause
     
