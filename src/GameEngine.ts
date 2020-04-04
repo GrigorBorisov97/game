@@ -7,6 +7,8 @@ class GameEngine
     height: number;
     env: EnvInterface;
     ctx: CanvasRenderingContext2D;
+    // images: {[key: string]: HTMLImageElement};
+    images: { [key: string]: HTMLImageElement } = {};
 
     // env:any need fix...
     constructor(id: string, width: number, height: number, env: EnvInterface) {
@@ -14,11 +16,9 @@ class GameEngine
         this.width = width;
         this.height = height;
         this.env = env;
-
-        this.setUp();
     }
 
-    private setUp() {
+    run() {
         this.createCanvas();
         this.env.preload();
         this.env.create();
@@ -30,6 +30,12 @@ class GameEngine
         canvas.width = this.width;
         canvas.height = this.height;
         this.ctx = canvas.getContext('2d');
+    }
+
+    loadImage(name: string, path: string) {
+        var img = new Image();
+        img.src = path;
+        this.images[name] = img;      
     }
 
 }

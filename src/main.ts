@@ -19,14 +19,15 @@ var gl = {
 }
 console.log(gl)
 
-const game = new GameEngine('game', 500, 800, { preload: preload, create: create, update: update });
-
-
+var game = new GameEngine('game', 500, 800, { preload: preload, create: create, update: update });
+game.run();
+ 
 // preload some image, audio ...
 function preload() {
-
-    // game.load.image('img_name', 'path/to/image.jpg');
-    // game.load.audio('audio_name', 'path/to/audio.mp3');
+    
+    game.loadImage('player', '../assets/images/player.png');
+    game.loadImage('sound', '../assets/images/patterns/1.jpg');
+     
 }
 
 // create objects like player, terrain ...
@@ -38,9 +39,7 @@ function create() {
 // all game logic is here
 function update() {
     if (gl.running) {
-        // game logic is here ...
 
-         
         
     }// else it is in pause
     

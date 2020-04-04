@@ -11,4 +11,6 @@ export default class StoneImage{
             // ctx.drawImage(this.base_image, 0, 0);
         }
     }
+
+    
 }
