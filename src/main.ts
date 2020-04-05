@@ -43,9 +43,9 @@ function create() {
     gl.terrain.createBackground(gl.canvas.width, gl.canvas.height, gl.canvas.background);
 
     // push first stones
-    gl.stones.push({x: 30, y: 30, width: 130, height: 50});
-    gl.stones.push({x: 130, y: 130, width: 130, height: 50});
-    gl.stones.push({x: 60, y: 230, width: 130, height: 50});
+    gl.stones.push({x: 30, y: 395, width: 80, height: 42});
+    gl.stones.push({x: 260, y: 425, width: 80, height: 42});
+    gl.stones.push({x: 160, y: 345, width: 80, height: 42});
 
 }
 
@@ -64,13 +64,6 @@ function update() {
         // Terrain logic
         gl.terrain.refreshStone(game, gl.stones);
 
-
-        // stones
-        game.ctx.drawImage(game.images.stone1, 30,395, 80, 48);
-        game.ctx.drawImage(game.images.stone2, 260,425, 80, 42);
-        game.ctx.drawImage(game.images.stone3, 160,345, 80, 42);
-
- 
         /*  
         *   Player logic
         */
@@ -80,9 +73,9 @@ function update() {
             gl.player.jumpCurrentIndex++;
             gl.player.initY = gl.player.y;
             // lele ....
-            let readyForJump =  isReadyForNewJump(30,395, gl.player.x +30, gl.player.y + 30) || 
-                                isReadyForNewJump(260,425, gl.player.x +30, gl.player.y + 30) ||
-                                isReadyForNewJump(160,345, gl.player.x +30, gl.player.y + 30);
+
+            var readyForJump = gl.stones.some(filterArrayStone);
+
             if (readyForJump) {
                 gl.player.jumpCurrentIndex = 0;
                 gl.player.jumpResetPath(1);
@@ -131,4 +124,8 @@ function isReadyForNewJump(sX: number, sY: number, pX: number, pY: number): bool
     }
     
     return false;
+}
+
+function filterArrayStone(stone:any, index:number, array:any):boolean {
+    return isReadyForNewJump(stone.x,stone.y, gl.player.x +30, gl.player.y + 30);
 }
