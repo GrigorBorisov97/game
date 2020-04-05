@@ -13,6 +13,8 @@ export class Player {
     jumpLength: number = 0;
     jumpCurrentIndex: number = 0;
     max: number = 50;
+    goingDown: boolean = false;
+    acceleration: number = 4;
 
     constructor() {
         this.setStandartJumpPath();
@@ -23,11 +25,13 @@ export class Player {
         this.jumpLength = 0;
         var tmp: number = this.max;
         for(var i=0;i<this.max;i++) {
-            tmp = tmp+4;
+            tmp = tmp + this.acceleration;
+            this.goingDown = true;
             this.jump.push(this.initY - tmp);  
         }
         for(var i=this.max;i>0;i--) {
-            tmp = tmp-4;
+            tmp = tmp - this.acceleration;
+            this.goingDown = false;
             this.jump.push(this.initY - tmp);
         }
         this.jumpLength = this.jump.length-1;
@@ -38,7 +42,7 @@ export class Player {
         this.jumpLength = 0;
         var tmp: number = 0;
         for(var i=0;i<this.max;i++) {
-            tmp = tmp+4;
+            tmp = tmp + this.acceleration;
             this.jump.push(this.initY + tmp);
         }
         this.jumpLength = this.jump.length-1;

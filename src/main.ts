@@ -43,10 +43,15 @@ function create() {
     gl.terrain.createBackground(gl.canvas.width, gl.canvas.height, gl.canvas.background);
 
     // push first stones
-    gl.stones.push({x: 30, y: 395, width: 80, height: 42});
-    gl.stones.push({x: 260, y: 425, width: 80, height: 42});
-    gl.stones.push({x: 160, y: 345, width: 80, height: 42});
+    // gl.stones.push({x: 30, y: 395, width: 80, height: 42});
+    // gl.stones.push({x: 260, y: 425, width: 80, height: 42});
 
+    for(let i = 0; i < gl.canvas.width; i += 80){      
+        gl.stones.push({x: i, y: gl.canvas.height - 45, width: 80, height: 42});
+    }
+
+    gl.stones.push({x: 100, y: 300, width: 80, height: 42});
+    gl.stones.push({x: 100, y: 200, width: 80, height: 42});
 }
 
 // all game logic is here
@@ -62,7 +67,11 @@ function update() {
 
 
         // Terrain logic
-        gl.terrain.refreshStone(game, gl.stones);
+        gl.stones = gl.terrain.refreshStone(game, gl.stones, gl.canvas);
+
+        if(gl.player.y < (window.innerHeight / 8) && gl.player.jumpCurrentIndex < 50){
+            gl.stones = gl.terrain.moveStoneDown(gl.stones, gl.player.acceleration);
+        }
 
         /*  
         *   Player logic
