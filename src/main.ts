@@ -22,6 +22,7 @@ var gl: any = {
     stones: {},
     input: new Input(),
     player: new Player(),
+    a: 0,
 }
 console.log(gl)
 
@@ -35,7 +36,9 @@ function preload() {
     game.loadImage('playerLeft', '../assets/images/player_left.png');
     game.loadImage('playerRight', '../assets/images/player_right.png');
     game.loadImage('stone1', '../assets/images/patterns/1.jpg');
-     
+    game.loadImage('stone2', '../assets/images/patterns/2.jpg');
+    game.loadImage('stone3', '../assets/images/patterns/3.jpg');
+    game.loadImage('stone4', '../assets/images/patterns/4.jpg');
 }
 
 // create objects like player, terrain ...
@@ -46,39 +49,83 @@ function create() {
 
 // all game logic is here
 function update() {
+
+   
+
+    
     if (gl.running) {
+        
         game.ctx.clearRect(0, 0, gl.canvas.width, gl.canvas.height);
+        game.ctx.fillStyle = "blue";
+
 
         // Terrain logic
 
-        game.ctx.drawImage(game.images.stone1, 30,30, 50, 50);
 
-        // Player logic
-        var plX: number = gl.player.x;
-        var plY: number = gl.player.y;
+        // stones
+        game.ctx.drawImage(game.images.stone1, 30,395, 80, 48);
+        game.ctx.drawImage(game.images.stone2, 260,425, 80, 42);
+        game.ctx.drawImage(game.images.stone3, 160,345, 80, 42);
+
+ 
+        /*  
+        *   Player logic
+        */
+
+         // down top calculations
+        if (gl.player.jumpLength > 0) {
+            gl.player.jumpCurrentIndex++;
+            gl.player.initY = gl.player.y;
+            // lele ....
+            let readyForJump =  isReadyForNewJump(30,395, gl.player.x +30, gl.player.y + 30) || 
+                                isReadyForNewJump(260,425, gl.player.x +30, gl.player.y + 30) ||
+                                isReadyForNewJump(160,345, gl.player.x +30, gl.player.y + 30);
+            if (readyForJump) {
+                gl.player.jumpCurrentIndex = 0;
+                gl.player.jumpResetPath(1);
+            } else if (gl.player.jumpCurrentIndex > gl.player.jumpLength) {
+                gl.player.jumpCurrentIndex = 0;
+                if ( ! readyForJump   ) {
+                    gl.player.jumpResetPath(2);
+                }
+            }
+            gl.player.y = gl.player.jump[gl.player.jumpCurrentIndex];
+        }
+        
+        // left and right for player
         var lastDirection = gl.player.direction;
         if (gl.input.arrowLeft) { 
-            if (plX+gl.player.width<0) {
-                plX = gl.canvas.width;
+            if (gl.player.x+gl.player.width<0) {
+                gl.player.x = gl.canvas.width;
             } 
             gl.player.direction = 'left';
-            plX -= gl.player.speed * (lastDirection == 'right' ? 2 : 1);
+            gl.player.x -= gl.player.speed * (lastDirection == 'right' ? 2 : 1);
         }
         if (gl.input.arrowRight) { 
-            if (plX>gl.canvas.width) {
-                plX = 0-gl.player.width;
+            if (gl.player.x>gl.canvas.width) {
+                gl.player.x = 0-gl.player.width;
             }
             gl.player.direction = 'right';
-            plX += gl.player.speed * (lastDirection == 'left' ? 2 : 1);
+            gl.player.x += gl.player.speed * (lastDirection == 'left' ? 2 : 1);
         }
-        gl.player.x = plX;
-
-        game.ctx.drawImage(gl.player.direction == 'left' ? game.images.playerLeft : game.images.playerRight, plX,plY, gl.player.width, gl.player.height);
+        
+        // draw player
+        game.ctx.drawImage(gl.player.direction == 'left' ? game.images.playerLeft : game.images.playerRight, gl.player.x, gl.player.y, gl.player.width, gl.player.height);
 
     }// else it is in pause
-    
+
+
+    gl.a++;
     gl.input.reset();
     gl.time = new Date().getTime();
     // just update the frames and call update function 60 times in one secund
     window.requestAnimationFrame(update)
+}
+
+function isReadyForNewJump(sX: number, sY: number, pX: number, pY: number): boolean {
+    if ( (pX > sX && pX < sX+45) && (pY < sY && pY > sY-45)) {
+        return true;
+    }
+    
+    return false;
 }
