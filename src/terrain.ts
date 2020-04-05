@@ -1,28 +1,21 @@
 
 import StoneImage from './image'
-import { stoneObjectInterface } from './Interfaces'
-// import { ctx } from './Const'
 
 export class Terrain {
-    stones: Array<stoneObjectInterface>;
 
-    constructor(){
-        this.stones = [{
-            type: 3,
-            x: 10,
-            y: 10,
-            scale: 1
-        }];
+    createBackground = (width: number, height:number,color:string ) => {
+        
     }
 
-    buildScreen = () => {
-        // ctx.fillStyle = "gray";
-        // ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    refreshStone = (gameEngineInstance: any, stones: any) => {
+        stones.map((stone:any) => {
+
+            gameEngineInstance.ctx.drawImage(gameEngineInstance.images.stone1, stone.x,stone.y, stone.width, stone.height);
+
+        })
     }
 
     addStone = () => {
-        this.stones.map(stone => {
-            new StoneImage(stone)
-        })
+        
     }
 }

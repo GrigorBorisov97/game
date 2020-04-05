@@ -5,21 +5,17 @@ import { Input } from './Input';
 import { Player } from './Player';
  
 
-let terrain = new Terrain;
-terrain.buildScreen();
-terrain.addStone();
-
-
 // set global object
 var gl: any = {
     canvas: {
         width: 360,
-        height: 520,
+        height: 530,
+        background: '#595959'
     },
     time: new Date().getTime(),
     running: true,
-    terrain: {},
-    stones: {},
+    stones: [],
+    terrain: new Terrain(),
     input: new Input(),
     player: new Player(),
     a: 0,
@@ -43,8 +39,14 @@ function preload() {
 
 // create objects like player, terrain ...
 function create() {
-    
-    // gl.terrain = new Terrain();
+    //create background
+    gl.terrain.createBackground(gl.canvas.width, gl.canvas.height, gl.canvas.background);
+
+    // push first stones
+    gl.stones.push({x: 30, y: 30, width: 130, height: 50});
+    gl.stones.push({x: 130, y: 130, width: 130, height: 50});
+    gl.stones.push({x: 60, y: 230, width: 130, height: 50});
+
 }
 
 // all game logic is here
@@ -60,6 +62,7 @@ function update() {
 
 
         // Terrain logic
+        gl.terrain.refreshStone(game, gl.stones);
 
 
         // stones
