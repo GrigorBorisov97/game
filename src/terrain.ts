@@ -24,7 +24,7 @@ export class Terrain {
         };
 
         // push first stones
-        for(let i = 0; i < this.game.gameWidth; i += 80){      
+        for(let i = 0; i < this.game.gameWidth; i += 60){      
             this.stones.push({x: i, y: this.game.gameHeight - 45, width: this.stoneSize.width, height: this.stoneSize.height, type: 1, haveSpring: false});
         }
 
