@@ -1,40 +1,51 @@
 
-import StoneImage from './image'
-
 export class Terrain {
+    stoneSize:any = {
+        width: 80,
+        height: 42
+    }
+    stones:object[] = [];
+    canvas: any;
+
+    constructor(){
+        this.canvas = {
+            width: 360,
+            height: 530,
+            background: '#595959'
+        };
+
+        // push first stones
+        for(let i = 0; i < this.canvas.width; i += 80){      
+            this.stones.push({x: i, y: this.canvas.height - 45, width: this.stoneSize.width, height: this.stoneSize.height});
+        }
+
+        this.stones.push({x: 200, y: 300, width: this.stoneSize.width, height: this.stoneSize.height});
+        this.stones.push({x: 100, y: 200, width: this.stoneSize.width, height: this.stoneSize.height});
+    }
 
     createBackground = (width: number, height:number,color:string ) => {
         
     }
 
-    refreshStone = (gameEngineInstance: any, stones: any,canvas: any) : object[] => {
-        let returnStonesCordinates: object[] = [];
-        stones.map((stone:any) => {
+    refreshStone = (gameEngineInstance: any) :void  => {
+        this.stones.map((stone:any) => {
             gameEngineInstance.ctx.drawImage(gameEngineInstance.images.stone1, stone.x,stone.y, stone.width, stone.height);
-            returnStonesCordinates.push({x: stone.x, y: stone.y, width: stone.width, height: stone.height});
         })
 
-        let lastStone:any = returnStonesCordinates[returnStonesCordinates.length - 1];
+        let lastStone:any = this.stones[this.stones.length - 1];
 
-        
         if(lastStone.y > 150){
-            // console.log(lastStone)
-            returnStonesCordinates.push({x: (Math.random() * canvas.width), y: -50, width: lastStone.width, height: lastStone.height});
+            this.addStone();
         }
-        return returnStonesCordinates;
     }
 
-    addStone = (canvas: any, size: any): object => {
-        return {x: 200, y: 0, width: 80, height: 42}
+    addStone = (): void => {
+        this.stones.push({x: (Math.random() * this.canvas.width), y: 0, width: this.stoneSize.width, height: this.stoneSize.height});
     }
 
-    moveStoneDown = (stones: any, acceleration: number) => {
-        let returnStonesCordinates: object[] = [];
-        stones.map((stone:any) => {
-            returnStonesCordinates.push({x: stone.x, y: stone.y + acceleration, width: stone.width, height: stone.height});
+    moveStoneDown = (acceleration: number) => {
+        this.stones.map((stone:any) => {
+            stone.y += acceleration;
         })
-
-
-        return returnStonesCordinates;
     }
 }
