@@ -16,6 +16,9 @@ class Game implements GameInterface
     images: { [key: string]: HTMLImageElement } = {};
 
     input: any;
+    score: number = 0;
+    isReloading: boolean = false;
+    level: number = 1;
 
     constructor(gameWidth: number, gameHeight: number) {
         this.gameWidth = gameWidth;
@@ -36,11 +39,28 @@ class Game implements GameInterface
     update(deltaTime: number): void {
         this.player.update(deltaTime);
         this.terrain.update(deltaTime);
+
+        if(this.player.position.y > this.gameHeight){
+            if(!this.isReloading){
+                window.location.reload();
+                this.isReloading = true;
+            }
+        }
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
-        this.terrain.draw(ctx);
+        this.terrain.draw(ctx, this.level);
         this.player.draw(ctx);
+
+        //levels
+        if(this.score / 200 == this.level && this.level < 9){
+            this.level++;
+        }
+
+        // score
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "white";
+        ctx.fillText((this.score * 9).toString(), 10, 30);
     }
 
     private preloadAssets() {

@@ -25,11 +25,11 @@ export class Terrain {
 
         // push first stones
         for(let i = 0; i < this.game.gameWidth; i += 80){      
-            this.stones.push({x: i, y: this.game.gameHeight - 45, width: this.stoneSize.width, height: this.stoneSize.height});
+            this.stones.push({x: i, y: this.game.gameHeight - 45, width: this.stoneSize.width, height: this.stoneSize.height, type: 1});
         }
 
-        this.stones.push({x: 200, y: 300, width: this.stoneSize.width, height: this.stoneSize.height});
-        this.stones.push({x: 100, y: 200, width: this.stoneSize.width, height: this.stoneSize.height});
+        this.stones.push({x: 0, y: 300, width: this.stoneSize.width, height: this.stoneSize.height, type: 1});
+        this.stones.push({x: 100, y: 200, width: this.stoneSize.width, height: this.stoneSize.height, type: 1});
     }
 
     update(deltaTime: number) {
@@ -38,20 +38,20 @@ export class Terrain {
         }
     }
 
-    draw(ctx: CanvasRenderingContext2D) {
+    draw(ctx: CanvasRenderingContext2D, level: number) {
         this.stones.map((stone:any) => {
-            ctx.drawImage(this.images.stone1, stone.x,stone.y, stone.width, stone.height);
+            ctx.drawImage(this.images[`stone${stone.type}`], stone.x,stone.y, stone.width, stone.height);
         });
 
         let lastStone:any = this.stones[this.stones.length - 1];
 
-        if(lastStone.y > 150){
-            this.addStone();
+        if(lastStone.y > 120){
+            this.addStone(level);
         }
     }
 
-    addStone = (): void => {
-        this.stones.push({x: (Math.random() * this.canvas.width), y: 0, width: this.stoneSize.width, height: this.stoneSize.height});
+    addStone = (level: number): void => {
+        this.stones.push({x: (Math.random() * (this.canvas.width - this.stoneSize.width)), y: -this.stoneSize.height, width: this.stoneSize.width, height: this.stoneSize.height, type: level});
     }
 
     moveStoneDown = (acceleration: number) => {
@@ -61,9 +61,11 @@ export class Terrain {
     }
 
     private preloadImages() {
-        this.loadImage('stone1', '../assets/images/patterns/1.jpg');
-        this.loadImage('stone2', '../assets/images/patterns/2.jpg');
+        for(let i = 1; i < 10; i++){
+            this.loadImage(`stone${i}`, `../assets/images/patterns/${i}.jpg`);
+        }
     }
+
     private loadImage(name: string, path: string): void {
         var img = new Image();
         img.src = path;
