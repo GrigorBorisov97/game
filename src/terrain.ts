@@ -39,6 +39,8 @@ export class Terrain {
     }
 
     draw(ctx: CanvasRenderingContext2D, level: number) {
+        ctx.drawImage(this.images.background, 0,0, this.game.gameWidth * 2, this.game.gameHeight);
+
         this.stones.map((stone:any) => {
             ctx.drawImage(
                 stone.haveSpring ? this.images['spring'] : this.images[`stone${stone.type}`], 
@@ -64,9 +66,10 @@ export class Terrain {
 
     private preloadImages() {
         for(let i = 1; i < 10; i++){
-            this.loadImage(`stone${i}`, `../assets/images/patterns/${i}.jpg`);
+            this.loadImage(`stone${i}`, `../assets/images/patterns/${i}.png`);
         }
-        this.loadImage('spring', '../assets/images/spring.png')
+        this.loadImage('spring', '../assets/images/spring.png');
+        this.loadImage('background', '../assets/images/background.jpg');
     }
 
     private loadImage(name: string, path: string): void {
