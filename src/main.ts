@@ -86,14 +86,14 @@ function update() {
                 gl.player.x = gl.terrain.canvas.width;
             } 
             gl.player.direction = 'left';
-            gl.player.x -= gl.player.speed * (lastDirection == 'right' ? 2 : 1);
+            gl.player.x -= gl.player.speed * (lastDirection == 'right' ? 0.6 : 0.3);
         }
         if (gl.input.arrowRight) { 
             if (gl.player.x>gl.terrain.canvas.width) {
                 gl.player.x = 0-gl.player.width;
             }
             gl.player.direction = 'right';
-            gl.player.x += gl.player.speed * (lastDirection == 'left' ? 2 : 1);
+            gl.player.x += gl.player.speed * (lastDirection == 'left' ? 0.6 : 0.3);
         }
         
         // draw player
@@ -103,7 +103,6 @@ function update() {
 
 
     gl.a++;
-    gl.input.reset();
     gl.time = new Date().getTime();
     // just update the frames and call update function 60 times in one secund
     window.requestAnimationFrame(update)
@@ -113,7 +112,7 @@ function isReadyForNewJump(sX: number, sY: number, pX: number, pY: number): bool
     if ( (pX > sX && pX < sX+45) && (pY < sY && pY > sY-45)) {
         return true;
     }
-    
+
     return false;
 }
 

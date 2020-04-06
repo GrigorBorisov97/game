@@ -20,7 +20,7 @@ class GameEngine
         this.createCanvas();
         this.env.preload();
         this.env.create();
-        window.requestAnimationFrame(this.env.update);
+        this.env.update();
     }
 
     private createCanvas() {

@@ -15,23 +15,36 @@ export class Input implements InputInterface{
     }
 
     listen() {
+        /*
+            НОВИТЕ 
+            КОНТРОЛИ
+            СА
+            А,D,W
+            !!!
+        */
+
         // this.bodyElement.addEventListener("click", stopAnimation, false);
-        this.bodyElement.addEventListener("keydown", event => {
-            if (event.keyCode === 37) {
+        this.bodyElement.addEventListener("keypress", event => {
+            // console.log(event)
+            if (event.code === 'KeyA') {
                 this.arrowLeft = true;
-            } else if (event.keyCode === 39) {
+            } else if (event.code === 'KeyD') {
                 this.arrowRight = true;
-            } else if (event.keyCode === 38) {
+            } else if (event.code === 'KeyW') {
                 this.arrowUp = true;
             }
             // do something
           }, false);
-    }
 
-    reset() {
-        this.arrowLeft = false;
-        this.arrowRight = false;
-        this.arrowUp = false;
+          this.bodyElement.addEventListener("keyup", event => {
+            if (event.code === 'KeyA') {
+                this.arrowLeft = false;
+            } else if (event.code === 'KeyD') {
+                this.arrowRight = false;
+            } else if (event.code === 'KeyW') {
+                this.arrowUp = false;
+            }
+            // do something
+          }, false);
     }
-
 }
