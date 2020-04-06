@@ -1,12 +1,15 @@
-import { Player } from './Player'
 import { GameInterface } from './Interfaces';
 import { Input } from './Input';
+import { Terrain } from './Terrain';
+import { Player } from './Player'
 
 class Game implements GameInterface
 {   
     gameWidth: number;
     gameHeight: number;
+
     player: Player;
+    terrain: Terrain;
     gameObjects: Array<object> = [];
   
     ctx: CanvasDrawImage;
@@ -25,17 +28,19 @@ class Game implements GameInterface
         this.input = new Input()
 
         this.player = new Player(this);
-        // new terrain
+        this.terrain = new Terrain(this);
 
         // this.gameObjects = [this.player];
     }
 
     update(deltaTime: number): void {
         this.player.update(deltaTime);
+        this.terrain.update(deltaTime);
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
         this.player.draw(ctx);
+        this.terrain.draw(ctx);
     }
 
     private preloadAssets() {

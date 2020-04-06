@@ -37,9 +37,7 @@ export class Player {
         if (this.jumpLength > 0) {
            this.jumpCurrentIndex++;
            this.initY = this.position.y;
-            // lele ....
-            // var readyForJump = gl.terrain.stones.some(filterArrayStone);
-            var readyForJump = false;
+            var readyForJump = this.isReadyForJump();
             if (readyForJump) {
                this.jumpCurrentIndex = 0;
                this.jumpResetPath(1);
@@ -69,6 +67,19 @@ export class Player {
             this.direction = 'right';
             this.position.x += this.speed * (lastDirection == 'left' ? 0.6 : 0.3);
         }
+    }
+    
+    isReadyForJump(): boolean {
+        var x = this.position.x;
+        var y = this.position.y;
+        function filterStone(stone:any, index:number, array:any): boolean {
+            if ( (x > stone.x && x < stone.x+45) && (y < stone.x && y > stone.x-45)) {
+                return true;
+            }
+            return false;
+        }
+
+        return this.game.terrain.stones.some(filterStone);
     }
 
     draw(ctx: CanvasRenderingContext2D) {
@@ -119,7 +130,7 @@ export class Player {
         }
     }
 
-    preloadImages() {
+    private preloadImages() {
         this.loadImage('playerLeft', '../assets/images/player_left.png');
         this.loadImage('playerRight', '../assets/images/player_right.png');
     }
