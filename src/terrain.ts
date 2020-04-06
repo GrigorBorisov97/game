@@ -25,11 +25,11 @@ export class Terrain {
 
         // push first stones
         for(let i = 0; i < this.game.gameWidth; i += 80){      
-            this.stones.push({x: i, y: this.game.gameHeight - 45, width: this.stoneSize.width, height: this.stoneSize.height, type: 1});
+            this.stones.push({x: i, y: this.game.gameHeight - 45, width: this.stoneSize.width, height: this.stoneSize.height, type: 1, haveSpring: false});
         }
 
-        this.stones.push({x: 0, y: 300, width: this.stoneSize.width, height: this.stoneSize.height, type: 1});
-        this.stones.push({x: 100, y: 200, width: this.stoneSize.width, height: this.stoneSize.height, type: 1});
+        this.stones.push({x: 0, y: 300, width: this.stoneSize.width, height: this.stoneSize.height, type: 1, haveSpring: false});
+        this.stones.push({x: 100, y: 200, width: this.stoneSize.width, height: this.stoneSize.height, type: 1, haveSpring: true});
     }
 
     update(deltaTime: number) {
@@ -40,7 +40,9 @@ export class Terrain {
 
     draw(ctx: CanvasRenderingContext2D, level: number) {
         this.stones.map((stone:any) => {
-            ctx.drawImage(this.images[`stone${stone.type}`], stone.x,stone.y, stone.width, stone.height);
+            ctx.drawImage(
+                stone.haveSpring ? this.images['spring'] : this.images[`stone${stone.type}`], 
+                stone.x,stone.y, stone.width, stone.height);
         });
 
         let lastStone:any = this.stones[this.stones.length - 1];
@@ -51,7 +53,7 @@ export class Terrain {
     }
 
     addStone = (level: number): void => {
-        this.stones.push({x: (Math.random() * (this.canvas.width - this.stoneSize.width)), y: -this.stoneSize.height, width: this.stoneSize.width, height: this.stoneSize.height, type: level});
+        this.stones.push({x: (Math.random() * (this.canvas.width - this.stoneSize.width)), y: -this.stoneSize.height, width: this.stoneSize.width, height: this.stoneSize.height, type: level,haveSpring: (Math.floor(Math.random() * 10)) == 5 ? true : false});
     }
 
     moveStoneDown = (acceleration: number) => {
@@ -64,6 +66,7 @@ export class Terrain {
         for(let i = 1; i < 10; i++){
             this.loadImage(`stone${i}`, `../assets/images/patterns/${i}.jpg`);
         }
+        this.loadImage('spring', '../assets/images/spring.png')
     }
 
     private loadImage(name: string, path: string): void {

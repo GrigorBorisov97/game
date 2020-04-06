@@ -19,7 +19,7 @@ export class Player {
     upPower: number = 0;
     // player is on the top
     onTop: boolean = false;
-    
+    megaJump: boolean = false;
 
     constructor(game: GameInterface) {
         this.game = game;
@@ -31,6 +31,7 @@ export class Player {
     update(deltaTime: number) {
         //stop player if he is on the top and call moveStone function
         this.position.y < 100 ? this.onTop = true : this.onTop = false;
+        this.megaJump = false;
         
         if(this.onTop && this.upPower > 0){
             this.game.terrain.moveStoneDown(this.upPower);
@@ -50,13 +51,14 @@ export class Player {
                 this.upPower < 0
             )
             {
+                if(stone.haveSpring){this.megaJump = true}
                 return true;
             }
             return false;
         }
 
         if(this.game.terrain.stones.some(filterStone)){
-            this.upPower = 16;
+            this.megaJump ? this.upPower = 40 : this.upPower = 16;
         }
 
         //the gravity ...
