@@ -1,3 +1,9 @@
+
+export interface GameInterface {
+    gameWidth: number;
+    gameHeight: number;
+}
+
 export interface stoneObjectInterface{
     type: number,
     x: number,

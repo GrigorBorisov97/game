@@ -1,6 +1,12 @@
-
+import { GameInterface } from './Interfaces';
 
 export class Player {
+
+    game: GameInterface;
+    position: object = {
+        x: 200,
+        y: 450
+    }
 
     x: number = 200;
     y: number = 450;
@@ -15,10 +21,21 @@ export class Player {
     max: number = 50;
     goingDown: boolean = false;
     acceleration: number = 4;
+    
 
-    constructor() {
+    constructor(game: GameInterface) {
+        this.game = game;
         this.setStandartJumpPath();
     }
+
+    update(deltaTime: number) {
+        
+    }
+
+    draw(ctx: CanvasRenderingContext2D) {
+
+    }
+
 
     setStandartJumpPath() {
         this.jump = [];
