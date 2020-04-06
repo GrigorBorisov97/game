@@ -50,22 +50,6 @@ export class Terrain {
         }
     }
 
-    createBackground = (width: number, height:number,color:string ) => {
-        
-    }
-
-    refreshStone = (gameEngineInstance: any) :void  => {
-        this.stones.map((stone:any) => {
-            gameEngineInstance.ctx.drawImage(gameEngineInstance.images.stone1, stone.x,stone.y, stone.width, stone.height);
-        })
-
-        let lastStone:any = this.stones[this.stones.length - 1];
-
-        if(lastStone.y > 150){
-            this.addStone();
-        }
-    }
-
     addStone = (): void => {
         this.stones.push({x: (Math.random() * this.canvas.width), y: 0, width: this.stoneSize.width, height: this.stoneSize.height});
     }

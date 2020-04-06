@@ -39,8 +39,8 @@ class Game implements GameInterface
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
-        this.player.draw(ctx);
         this.terrain.draw(ctx);
+        this.player.draw(ctx);
     }
 
     private preloadAssets() {
