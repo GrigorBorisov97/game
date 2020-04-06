@@ -1,5 +1,6 @@
 import { Player } from './Player'
 import { GameInterface } from './Interfaces';
+import { Input } from './Input';
 
 class Game implements GameInterface
 {   
@@ -8,8 +9,10 @@ class Game implements GameInterface
     player: Player;
     gameObjects: Array<object> = [];
   
-    ctx: CanvasRenderingContext2D;
+    ctx: CanvasDrawImage;
     images: { [key: string]: HTMLImageElement } = {};
+
+    input: any;
 
     constructor(gameWidth: number, gameHeight: number) {
         this.gameWidth = gameWidth;
@@ -19,10 +22,12 @@ class Game implements GameInterface
     start(): void {
         this.preloadAssets();
 
+        this.input = new Input()
+
         this.player = new Player(this);
         // new terrain
 
-        this.gameObjects = [this.player];
+        // this.gameObjects = [this.player];
     }
 
     update(deltaTime: number): void {

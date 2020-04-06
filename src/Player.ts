@@ -2,11 +2,13 @@ import { GameInterface } from './Interfaces';
 
 export class Player {
 
-    game: GameInterface;
-    position: object = {
+    game: any;
+    position = {
         x: 200,
         y: 450
     }
+    images: { [key: string]: HTMLImageElement } = {};
+
 
     x: number = 200;
     y: number = 450;
@@ -25,15 +27,59 @@ export class Player {
 
     constructor(game: GameInterface) {
         this.game = game;
+        
+        this.preloadImages();
         this.setStandartJumpPath();
     }
 
     update(deltaTime: number) {
-        
+
+        if (this.jumpLength > 0) {
+           this.jumpCurrentIndex++;
+           this.initY = this.position.y;
+            // lele ....
+            // var readyForJump = gl.terrain.stones.some(filterArrayStone);
+            var readyForJump = false;
+            if (readyForJump) {
+               this.jumpCurrentIndex = 0;
+               this.jumpResetPath(1);
+            } else if (this.jumpCurrentIndex > this.jumpLength) {
+                this.jumpCurrentIndex = 0;
+                if ( ! readyForJump   ) {
+                    this.jumpResetPath(2);
+                }
+            }
+            this.position.y = this.jump[this.jumpCurrentIndex];
+        }
+      
+
+        // left and right for player
+        var lastDirection = this.direction;
+        if (this.game.input.arrowLeft) { 
+            if ( this.position.x + this.width < 0 ) {
+                this.x = this.game.gameWidth;
+            } 
+            this.direction = 'left';
+            this.position.x -= this.speed * (lastDirection == 'right' ? 0.6 : 0.3);
+        }
+        if (this.game.input.arrowRight) { 
+            if (this.position.x> this.game.gameWidth) {
+                this.position.x = 0 - this.width;
+            }
+            this.direction = 'right';
+            this.position.x += this.speed * (lastDirection == 'left' ? 0.6 : 0.3);
+        }
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-
+        ctx.drawImage(this.direction == 'left' ? 
+                        this.images.playerLeft : 
+                        this.images.playerRight, 
+                        this.position.x, 
+                        this.position.y, 
+                        this.width, 
+                        this.height
+        );
     }
 
 
@@ -71,6 +117,17 @@ export class Player {
         } else if (dir == 2) {
             this.setDownJumpPaht();
         }
+    }
+
+    preloadImages() {
+        this.loadImage('playerLeft', '../assets/images/player_left.png');
+        this.loadImage('playerRight', '../assets/images/player_right.png');
+    }
+
+    private loadImage(name: string, path: string): void {
+        var img = new Image();
+        img.src = path;
+        this.images[name] = img;    
     }
 
 }
