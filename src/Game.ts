@@ -4,6 +4,13 @@ import { Terrain } from './Terrain';
 import { Player } from './Player'
 import Sound from './Sound';
 
+const GAME_STATE = {
+    PAUSED: 0,
+    RUNNING: 1,
+    MENU: 2,
+    GAMEOVER: 3
+}
+
 class Game implements GameInterface
 {   
     gameWidth: number;
@@ -13,6 +20,8 @@ class Game implements GameInterface
     terrain: Terrain;
     sound: Sound;
     gameObjects: Array<object> = [];
+
+    gameState: Number;
   
     ctx: CanvasDrawImage;
     images: { [key: string]: HTMLImageElement } = {};
@@ -28,7 +37,9 @@ class Game implements GameInterface
     }
 
     start(): void {
-        this.input = new Input()
+        this.gameState = GAME_STATE.RUNNING;
+
+        this.input = new Input(this)
 
         this.player = new Player(this);
         this.terrain = new Terrain(this);
@@ -38,6 +49,8 @@ class Game implements GameInterface
     }
 
     update(deltaTime: number): void {
+        if (this.gameState == GAME_STATE.PAUSED) return;
+
         this.player.update(deltaTime);
         this.terrain.update(deltaTime);
 
@@ -62,6 +75,25 @@ class Game implements GameInterface
         ctx.font = "20px Arial";
         ctx.fillStyle = "white";
         ctx.fillText((this.score * 9).toString(), 10, 30);
+
+        if (this.gameState == GAME_STATE.PAUSED) {
+            // ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
+            // ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+            // ctx.fill();
+
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.fillText("Paused", this.gameWidth / 2, this.gameHeight / 2);
+        }
+    }
+
+    togglePause() {
+        if (this.gameState == GAME_STATE.PAUSED) {
+            this.gameState = GAME_STATE.RUNNING;
+        } else {
+            this.gameState = GAME_STATE.PAUSED;
+        }
     }
 
 }

@@ -1,14 +1,15 @@
-import { InputInterface } from './Interfaces';
+import { InputInterface, GameInterface } from './Interfaces';
 
 export class Input implements InputInterface{
 
     bodyElement: HTMLBodyElement;
-  
+    game: GameInterface;
     moveLeft: boolean = false;
     moveRight: boolean = false;
     moveUp: boolean = false;
 
-    constructor() {
+    constructor(game: GameInterface) {
+        this.game = game;
         this.bodyElement = document.querySelector("body");
          
         this.listen();
@@ -31,6 +32,10 @@ export class Input implements InputInterface{
             case "ArrowDown":
             case 's':
                 
+                break;
+            case ' ':
+            case 'Enter':
+                this.game.togglePause();
                 break;
         }
     }
