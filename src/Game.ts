@@ -2,6 +2,7 @@ import { GameInterface } from './Interfaces';
 import { Input } from './Input';
 import { Terrain } from './Terrain';
 import { Player } from './Player'
+import Sound from './Sound';
 
 class Game implements GameInterface
 {   
@@ -10,6 +11,7 @@ class Game implements GameInterface
 
     player: Player;
     terrain: Terrain;
+    sound: Sound;
     gameObjects: Array<object> = [];
   
     ctx: CanvasDrawImage;
@@ -30,6 +32,7 @@ class Game implements GameInterface
 
         this.player = new Player(this);
         this.terrain = new Terrain(this);
+        this.sound = new Sound(this);
 
         // this.gameObjects = [this.player];
     }

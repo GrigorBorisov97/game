@@ -12,8 +12,8 @@ export class Player {
     height: number =  80;
     direction: string =  'left';
     speed:  number = 6;
-    // if player is going down
-    goingDown: boolean = false;
+    // // if player is going down
+    // goingDown: boolean = false;
     gravity: number = 0.6;
     //the up-power will set when is on block and decrease till go down
     upPower: number = 0;
@@ -28,8 +28,7 @@ export class Player {
     constructor(game: GameInterface) {
         this.game = game;
         
-        this.preloadImages();
-        // this.setStandartJumpPath();
+        this.preloadAssets();
     }
 
     update(deltaTime: number): void {
@@ -40,9 +39,7 @@ export class Player {
         if(this.onTop && this.upPower > 0){
             this.game.terrain.moveStoneDown(this.upPower);
             this.game.score++;
-        }
-
-        else{
+        } else{
             // minus because the 'y' start from top
             this.position.y -= this.upPower;
         }
@@ -55,7 +52,15 @@ export class Player {
                 this.upPower < 0
             )
             {
-                if(stone.haveSpring){this.megaJump = true}
+                if(stone.haveSpring){ this.megaJump = true}
+                // play sound
+                if (this.megaJump) {
+                    this.game.sound.sounds['megaJump'].play();
+                } else {
+                    this.game.sound.sounds['jump'].play();
+                }
+                
+                
                 return true;
             }
             return false;
@@ -78,7 +83,7 @@ export class Player {
             this.position.x -= this.speed * (lastDirection == 'right' ? 2 : 1);
         }
         if (this.game.input.moveRight) { 
-            if (this.position.x> this.game.gameWidth) {
+            if (this.position.x > this.game.gameWidth) {
                 this.position.x = 0 - this.width;
             }
             this.direction = 'right';
@@ -97,7 +102,7 @@ export class Player {
         );
     }
 
-    private preloadImages(): void {
+    private preloadAssets(): void {
         this.loadImage('playerLeft', '../assets/images/player_left.png');
         this.loadImage('playerRight', '../assets/images/player_right.png');
     }
