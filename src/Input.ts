@@ -34,9 +34,9 @@ export class Input implements InputInterface{
                 this.arrowUp = true;
             }
             // do something
-          }, false);
+        }, false);
 
-          this.bodyElement.addEventListener("keyup", event => {
+        this.bodyElement.addEventListener("keyup", event => {
             if (event.code === 'KeyA') {
                 this.arrowLeft = false;
             } else if (event.code === 'KeyD') {
@@ -45,6 +45,7 @@ export class Input implements InputInterface{
                 this.arrowUp = false;
             }
             // do something
-          }, false);
+        }, false);
     }
+    
 }

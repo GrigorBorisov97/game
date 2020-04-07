@@ -84,13 +84,13 @@ export class Player {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        ctx.drawImage(this.direction == 'left' ? 
-                      this.images.playerLeft : 
-                      this.images.playerRight, 
-                      this.position.x, 
-                      this.position.y, 
-                      this.width, 
-                      this.height
+        ctx.drawImage(  this.direction == 'left' ?
+                        this.images.playerLeft : 
+                        this.images.playerRight, 
+                        this.position.x, 
+                        this.position.y, 
+                        this.width, 
+                        this.height
         );
     }
 

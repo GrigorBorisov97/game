@@ -14,9 +14,7 @@ export class Terrain {
     constructor(game: GameInterface){
         this.game = game;
         this.preloadImages();
-
-
-
+        
         this.canvas = {
             width: 360,
             height: 530,
@@ -77,4 +75,5 @@ export class Terrain {
         img.src = path;
         this.images[name] = img;    
     }
+
 }
