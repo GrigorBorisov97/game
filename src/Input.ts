@@ -14,7 +14,7 @@ export class Input implements InputInterface{
         this.listen();
     }
 
-      setMovement(key: string, state: boolean) {
+    setMovement(key: string, state: boolean) {
         switch (key) {
             case 'ArrowLeft':
             case 'a':

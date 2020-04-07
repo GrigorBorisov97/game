@@ -17,9 +17,13 @@ export class Player {
     gravity: number = 0.6;
     //the up-power will set when is on block and decrease till go down
     upPower: number = 0;
+    upPowerSpeed: number = 16;
+    upPowerMegaJumpSpeed: number = 40;
     // player is on the top
     onTop: boolean = false;
     megaJump: boolean = false;
+
+    topCallMoveStone: number = 100;
 
     constructor(game: GameInterface) {
         this.game = game;
@@ -28,9 +32,9 @@ export class Player {
         // this.setStandartJumpPath();
     }
 
-    update(deltaTime: number) {
+    update(deltaTime: number): void {
         //stop player if he is on the top and call moveStone function
-        this.position.y < 100 ? this.onTop = true : this.onTop = false;
+        this.position.y < this.topCallMoveStone ? this.onTop = true : this.onTop = false;
         this.megaJump = false;
         
         if(this.onTop && this.upPower > 0){
@@ -58,12 +62,11 @@ export class Player {
         }
 
         if(this.game.terrain.stones.some(filterStone)){
-            this.megaJump ? this.upPower = 40 : this.upPower = 16;
+            this.megaJump ? this.upPower = this.upPowerMegaJumpSpeed : this.upPower = this.upPowerSpeed;
         }
 
         //the gravity ...
         this.upPower -= this.gravity;
-
 
         // left and right for player
         var lastDirection = this.direction;
@@ -83,7 +86,7 @@ export class Player {
         }
     }
 
-    draw(ctx: CanvasRenderingContext2D) {
+    draw(ctx: CanvasRenderingContext2D): void {
         ctx.drawImage(  this.direction == 'left' ?
                         this.images.playerLeft : 
                         this.images.playerRight, 
@@ -94,7 +97,7 @@ export class Player {
         );
     }
 
-    private preloadImages() {
+    private preloadImages(): void {
         this.loadImage('playerLeft', '../assets/images/player_left.png');
         this.loadImage('playerRight', '../assets/images/player_right.png');
     }
