@@ -67,14 +67,14 @@ export class Player {
 
         // left and right for player
         var lastDirection = this.direction;
-        if (this.game.input.arrowLeft) { 
+        if (this.game.input.moveLeft) { 
             if ( this.position.x + this.width < 0 ) {
                 this.position.x = this.game.gameWidth;
             } 
             this.direction = 'left';
             this.position.x -= this.speed * (lastDirection == 'right' ? 2 : 1);
         }
-        if (this.game.input.arrowRight) { 
+        if (this.game.input.moveRight) { 
             if (this.position.x> this.game.gameWidth) {
                 this.position.x = 0 - this.width;
             }

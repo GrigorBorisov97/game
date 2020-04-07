@@ -4,9 +4,9 @@ export class Input implements InputInterface{
 
     bodyElement: HTMLBodyElement;
   
-    arrowLeft: boolean;
-    arrowRight: boolean;
-    arrowUp: boolean;
+    moveLeft: boolean = false;
+    moveRight: boolean = false;
+    moveUp: boolean = false;
 
     constructor() {
         this.bodyElement = document.querySelector("body");
@@ -14,38 +14,39 @@ export class Input implements InputInterface{
         this.listen();
     }
 
-    listen() {
-        /*
-            НОВИТЕ 
-            КОНТРОЛИ
-            СА
-            А,D,W
-            !!!
-        */
+      setMovement(key: string, state: boolean) {
+        switch (key) {
+            case 'ArrowLeft':
+            case 'a':
+                this.moveLeft = state;
+                break;
+            case 'ArrowUp':
+            case 'w':
+                this.moveUp = state;
+                break;
+            case 'ArrowRight':
+            case 'd':
+                this.moveRight = state;
+                break;
+            case "ArrowDown":
+            case 's':
+                
+                break;
+        }
+    }
 
-        // this.bodyElement.addEventListener("click", stopAnimation, false);
+    listen() {
         this.bodyElement.addEventListener("keypress", event => {
-            // console.log(event)
-            if (event.code === 'KeyA') {
-                this.arrowLeft = true;
-            } else if (event.code === 'KeyD') {
-                this.arrowRight = true;
-            } else if (event.code === 'KeyW') {
-                this.arrowUp = true;
-            }
-            // do something
+            this.setMovement(event.key, true);
         }, false);
 
         this.bodyElement.addEventListener("keyup", event => {
-            if (event.code === 'KeyA') {
-                this.arrowLeft = false;
-            } else if (event.code === 'KeyD') {
-                this.arrowRight = false;
-            } else if (event.code === 'KeyW') {
-                this.arrowUp = false;
-            }
-            // do something
+            this.setMovement(event.key, false);
+        }, false);
+
+        this.bodyElement.addEventListener("keydown", (event) => {
+            this.setMovement(event.key, true);
         }, false);
     }
-    
+
 }

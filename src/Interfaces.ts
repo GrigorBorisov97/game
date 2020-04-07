@@ -19,7 +19,7 @@ export interface EnvInterface {
 
 export interface InputInterface {
     bodyElement: HTMLBodyElement;
-    arrowLeft: boolean;
-    arrowRight: boolean;
-    arrowUp: boolean;
+    moveLeft: boolean;
+    moveRight: boolean;
+    moveUp: boolean;
 }
