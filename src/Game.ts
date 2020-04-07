@@ -26,8 +26,6 @@ class Game implements GameInterface
     }
 
     start(): void {
-        this.preloadAssets();
-
         this.input = new Input()
 
         this.player = new Player(this);
@@ -62,28 +60,6 @@ class Game implements GameInterface
         ctx.fillStyle = "white";
         ctx.fillText((this.score * 9).toString(), 10, 30);
     }
-
-    private preloadAssets() {
-        this.loadImage('playerLeft', '../assets/images/player_left.png');
-        this.loadImage('playerRight', '../assets/images/player_right.png');
-        this.loadImage('stone1', '../assets/images/patterns/1.jpg');
-        this.loadImage('stone2', '../assets/images/patterns/2.jpg');
-        this.loadImage('stone3', '../assets/images/patterns/3.jpg');
-        this.loadImage('stone4', '../assets/images/patterns/4.jpg');
-    }
-
-    private loadImage(name: string, path: string): void {
-        var img = new Image();
-        img.src = path;
-        this.images[name] = img;      
-    }
-
-    private loadSound(name: string, path: string): void {
-        // ...
-    }
-
-    
- 
 
 }
 
