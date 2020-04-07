@@ -77,9 +77,9 @@ class Game implements GameInterface
         ctx.fillText((this.score * 9).toString(), 10, 30);
 
         if (this.gameState == GAME_STATE.PAUSED) {
-            // ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
-            // ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
-            // ctx.fill();
+            ctx.rect(0, 0, this.gameWidth, this.gameHeight);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+            ctx.fill();
 
             ctx.font = "30px Arial";
             ctx.fillStyle = "white";
