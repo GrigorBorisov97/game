@@ -18,7 +18,7 @@ class Game implements GameInterface
 
     player: Player;
     terrain: Terrain;
-    sound: Sound;
+    sounds: { [key: string]: Sound } = {};
     gameObjects: Array<object> = [];
 
     gameState: Number;
@@ -43,9 +43,15 @@ class Game implements GameInterface
 
         this.player = new Player(this);
         this.terrain = new Terrain(this);
-        this.sound = new Sound(this);
 
         // this.gameObjects = [this.player];
+
+        this.loadAssets();
+    }
+
+    loadAssets() {
+        this.sounds['jump'] = new Sound("../assets/sounds/jump.mp3");
+        this.sounds['megaJump'] = new Sound("../assets/sounds/megaJump.mp3");
     }
 
     update(deltaTime: number): void {

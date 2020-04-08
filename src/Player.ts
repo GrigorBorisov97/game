@@ -55,11 +55,10 @@ export class Player {
                 if(stone.haveSpring){ this.megaJump = true}
                 // play sound
                 if (this.megaJump) {
-                    this.game.sound.sounds['megaJump'].play();
+                    this.game.sounds['megaJump'].play();
                 } else {
-                    this.game.sound.sounds['jump'].play();
+                    this.game.sounds['jump'].play();
                 }
-                
                 
                 return true;
             }

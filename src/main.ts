@@ -27,4 +27,3 @@ function update(timestamp: number): void {
 }
 
 window.requestAnimationFrame(update);
- 
