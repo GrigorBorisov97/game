@@ -8,7 +8,9 @@ const GAME_STATE = {
     PAUSED: 0,
     RUNNING: 1,
     MENU: 2,
-    GAMEOVER: 3
+    GAMEOVER: 3,
+    INIT: 4,
+    LOAD: 5,
 }
 
 class Game implements GameInterface
@@ -21,7 +23,7 @@ class Game implements GameInterface
     sounds: { [key: string]: Sound } = {};
     gameObjects: Array<object> = [];
 
-    gameState: Number;
+    gameState: Number = GAME_STATE.INIT;
   
     ctx: CanvasDrawImage;
     images: { [key: string]: HTMLImageElement } = {};
@@ -36,8 +38,8 @@ class Game implements GameInterface
         this.gameHeight = gameHeight;
     }
 
+    
     start(): void {
-        this.gameState = GAME_STATE.RUNNING;
 
         this.input = new Input(this)
 
@@ -56,6 +58,7 @@ class Game implements GameInterface
 
     update(deltaTime: number): void {
         if (this.gameState == GAME_STATE.PAUSED) return;
+        if (this.gameState == GAME_STATE.INIT) return;
 
         this.player.update(deltaTime);
         this.terrain.update(deltaTime);
@@ -69,6 +72,12 @@ class Game implements GameInterface
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
+        if (this.gameState == GAME_STATE.INIT) {
+            this.initScreen(ctx);
+            return;
+        }
+
+
         this.terrain.draw(ctx, this.level);
         this.player.draw(ctx);
 
@@ -100,6 +109,48 @@ class Game implements GameInterface
         } else {
             this.gameState = GAME_STATE.PAUSED;
         }
+    }
+
+    initScreen(ctx: CanvasRenderingContext2D): void {
+        document.addEventListener('click', () => {
+            this.gameState = GAME_STATE.RUNNING;
+        }, false);
+
+
+        var bg = new Image();
+        bg.src = '../assets/images/bg5.jpg';
+        bg = bg;
+        ctx.drawImage(bg,0,0, this.gameWidth * 2, this.gameHeight);   
+
+        ctx.font = "30px Arial";
+        ctx.fillStyle = "WHITE";
+        ctx.fillText("START GAME", 80, 390);
+
+        ctx.font = "22px Arial";
+        ctx.fillStyle = "WHITE";
+        ctx.fillText("SUPER GRI60", 100, 90);
+       
+          
+        // ctx.rect(0, 0, this.gameWidth, this.gameHeight);
+        // ctx.drawImage(bg, 0,0, this.gameWidth, this.gameHeight);
+        // ctx.fillRect(0,0, this.gameWidth, this.gameHeight);
+        
+        // ctx.rect(0, 0, this.gameWidth, this.gameHeight);
+        //     ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+        //     ctx.fill();
+
+
+        // ctx.rect(0, 0, this.gameWidth, this.gameHeight);
+        // var startBtn = new Image();
+        // startBtn.src = '../assets/images/start1.png';
+        // ctx.drawImage(startBtn, this.gameWidth / 2 - 50 , this.gameHeight / 2 + 120, 100, 40);
+
+        // ctx.rect(0, 0, this.gameWidth, this.gameHeight);
+        // var startBtn = new Image();
+        // startBtn.src = '../assets/images/player.png';
+        // ctx.drawImage(startBtn, this.gameWidth / 2 - 50 , this.gameHeight / 2 - 20, 100, 40);
+        
+
     }
 
 }
