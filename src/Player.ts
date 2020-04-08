@@ -27,8 +27,6 @@ export class Player {
 
     constructor(game: GameInterface) {
         this.game = game;
-        
-        this.preloadAssets();
     }
 
     update(deltaTime: number): void {
@@ -91,25 +89,12 @@ export class Player {
     }
 
     draw(ctx: CanvasRenderingContext2D): void {
-        ctx.drawImage(  this.direction == 'left' ?
-                        this.images.playerLeft : 
-                        this.images.playerRight, 
+        ctx.drawImage( this.game.images.players[this.game.selectedPlayer], 
                         this.position.x, 
                         this.position.y, 
                         this.width, 
                         this.height
         );
-    }
-
-    private preloadAssets(): void {
-        this.loadImage('playerLeft', '../assets/images/player_left.png');
-        this.loadImage('playerRight', '../assets/images/player_right.png');
-    }
-
-    private loadImage(name: string, path: string): void {
-        var img = new Image();
-        img.src = path;
-        this.images[name] = img;    
     }
 
 }

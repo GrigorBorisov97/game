@@ -3,6 +3,8 @@ export interface GameInterface {
     gameWidth: number;
     gameHeight: number;
     togglePause(): void;
+    canvas: any;
+    click: any;
 }
 
 export interface stoneObjectInterface{

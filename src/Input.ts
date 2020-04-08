@@ -52,6 +52,26 @@ export class Input implements InputInterface{
         this.bodyElement.addEventListener("keydown", (event) => {
             this.setMovement(event.key, true);
         }, false);
+
+        document.addEventListener('click', (e) => {
+            var x;
+            var y;
+            if (e.pageX || e.pageY) { 
+                x = e.pageX;
+                y = e.pageY;
+            }
+            else { 
+                x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft; 
+                y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
+            } 
+            x -= this.game.canvas.offsetLeft;
+            y -= this.game.canvas.offsetTop;
+
+            this.game.click = {
+                x: x,
+                y: y
+            }
+        }, false);
     }
 
 }
