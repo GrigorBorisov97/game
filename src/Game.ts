@@ -115,8 +115,7 @@ class Game implements GameInterface
         document.addEventListener('click', () => {
             this.gameState = GAME_STATE.RUNNING;
         }, false);
-
-
+        
         var bg = new Image();
         bg.src = '../assets/images/bg5.jpg';
         bg = bg;
@@ -129,28 +128,6 @@ class Game implements GameInterface
         ctx.font = "22px Arial";
         ctx.fillStyle = "WHITE";
         ctx.fillText("SUPER GRI60", 100, 90);
-       
-          
-        // ctx.rect(0, 0, this.gameWidth, this.gameHeight);
-        // ctx.drawImage(bg, 0,0, this.gameWidth, this.gameHeight);
-        // ctx.fillRect(0,0, this.gameWidth, this.gameHeight);
-        
-        // ctx.rect(0, 0, this.gameWidth, this.gameHeight);
-        //     ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
-        //     ctx.fill();
-
-
-        // ctx.rect(0, 0, this.gameWidth, this.gameHeight);
-        // var startBtn = new Image();
-        // startBtn.src = '../assets/images/start1.png';
-        // ctx.drawImage(startBtn, this.gameWidth / 2 - 50 , this.gameHeight / 2 + 120, 100, 40);
-
-        // ctx.rect(0, 0, this.gameWidth, this.gameHeight);
-        // var startBtn = new Image();
-        // startBtn.src = '../assets/images/player.png';
-        // ctx.drawImage(startBtn, this.gameWidth / 2 - 50 , this.gameHeight / 2 - 20, 100, 40);
-        
-
     }
 
 }
