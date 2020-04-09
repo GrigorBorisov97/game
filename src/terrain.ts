@@ -31,6 +31,7 @@ export class Terrain {
     }
 
     update(deltaTime: number) {
+        this.moveStoneDown(this.game.level * 0.33);
         if(this.game.player.position.y < (window.innerHeight / 8) && this.game.player.jumpCurrentIndex < 50){
             this.moveStoneDown(this.game.player.acceleration);
         }
